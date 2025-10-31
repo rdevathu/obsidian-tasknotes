@@ -15,6 +15,13 @@
   "license": "MIT",
   "commands": [
     {
+      "name": "task-menu-bar",
+      "title": "TaskNotes Menu Bar",
+      "description": "Quick access to today's and overdue tasks from the menu bar",
+      "mode": "menu-bar",
+      "interval": "1m"
+    },
+    {
       "name": "view-tasks",
       "title": "View Tasks",
       "description": "Browse and manage your TaskNotes tasks with smart filters",
@@ -65,6 +72,14 @@
       "title": "API Token",
       "description": "Optional bearer token for API authentication",
       "placeholder": "Leave empty if no authentication is configured"
+    },
+    {
+      "name": "obsidianVault",
+      "type": "textfield",
+      "required": true,
+      "title": "Obsidian Vault Name",
+      "description": "The name of your Obsidian vault (required for opening tasks in Obsidian)",
+      "placeholder": "My Vault"
     }
   ],
   "dependencies": {

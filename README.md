@@ -4,6 +4,13 @@ A powerful Raycast extension for managing your TaskNotes tasks directly from Ray
 
 ## Features
 
+### Menu Bar Quick Access
+- **TaskNotes Menu Bar** - Always-on menu bar item showing today's and overdue task count
+  - Visual indicator (red dot) when tasks are due
+  - Click to view tasks organized in "Overdue" and "Today" sections
+  - Click any task to open it directly in Obsidian (via Advanced URI)
+  - Quick actions to open View Tasks or Create Task commands
+  
 ### Core Task Management
 - **View Tasks** - Browse tasks with smart filters (Today, Overdue, All Open)
 - **Create Task** - Quick task creation with full metadata support
@@ -47,10 +54,27 @@ Access extension preferences in Raycast:
 - **API URL**: Default `http://localhost`
 - **API Port**: Default `8080`
 - **API Token**: Optional (leave empty if no auth)
+- **Obsidian Vault Name**: Your vault name (required for opening tasks in Obsidian)
+
+**Important**: Make sure you have the [Obsidian Advanced URI](https://github.com/Vinzent03/obsidian-advanced-uri) plugin installed in Obsidian for the "open in Obsidian" feature to work properly.
 
 ## Usage
 
 ### Commands
+
+#### TaskNotes Menu Bar
+Always-visible menu bar item for quick access to your tasks.
+
+**Features:**
+- Shows count of today's and overdue tasks
+- Visual indicator (red dot when tasks are due, green checkmark when clear)
+- Click to view tasks organized by "Overdue" and "Today" sections
+- Click any task to open it directly in Obsidian
+- Quick access to View All Tasks and Create Task commands
+
+**Keyboard Shortcuts:**
+- `Cmd+O` - Open View Tasks command
+- `Cmd+N` - Open Create Task command
 
 #### View Tasks
 Search for "View Tasks" in Raycast to browse your task list.
