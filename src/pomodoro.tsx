@@ -320,6 +320,7 @@ function SelectTaskForm({ tasks, onStart }: { tasks: Task[]; onStart: (taskId: s
             key={task.path}
             value={task.path}
             title={task.title}
+            icon={Icon.Document}
           />
         ))}
       </Form.Dropdown>

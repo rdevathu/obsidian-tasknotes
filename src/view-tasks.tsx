@@ -268,9 +268,9 @@ export default function ViewTasks() {
       searchBarPlaceholder="Search tasks..."
       searchBarAccessory={
         <List.Dropdown tooltip="Filter Tasks" value={filter} onChange={(newValue) => setFilter(newValue as FilterType)}>
-          <List.Dropdown.Item title="Today (+ Overdue)" value="today" />
-          <List.Dropdown.Item title="Overdue Only" value="overdue" />
-          <List.Dropdown.Item title="All Open Tasks" value="all" />
+          <List.Dropdown.Item title="Today (+ Overdue)" value="today" icon={Icon.Calendar} />
+          <List.Dropdown.Item title="Overdue Only" value="overdue" icon={Icon.ExclamationMark} />
+          <List.Dropdown.Item title="All Open Tasks" value="all" icon={Icon.List} />
         </List.Dropdown>
       }
     >

@@ -1,4 +1,4 @@
-import { ActionPanel, Action, Form, showToast, Toast, popToRoot, useNavigation } from "@raycast/api";
+import { ActionPanel, Action, Form, showToast, Toast, popToRoot, useNavigation, Icon } from "@raycast/api";
 import { useState } from "react";
 import { getClient } from "./api/client";
 import { Task, UpdateTaskInput } from "./api/types";
@@ -138,18 +138,18 @@ export default function EditTaskForm({ task, onSave }: EditTaskFormProps) {
       <Form.TextField id="title" title="Title" placeholder="Task title" defaultValue={task.title} />
 
       <Form.Dropdown id="priority" title="Priority" defaultValue={task.priority?.toLowerCase() || "none"}>
-        <Form.Dropdown.Item value="none" title="None" />
-        <Form.Dropdown.Item value="low" title="Low" />
-        <Form.Dropdown.Item value="normal" title="Normal" />
-        <Form.Dropdown.Item value="high" title="High" />
+        <Form.Dropdown.Item value="none" title="None" icon={Icon.Minus} />
+        <Form.Dropdown.Item value="low" title="Low" icon={Icon.Circle} />
+        <Form.Dropdown.Item value="normal" title="Normal" icon={Icon.Dot} />
+        <Form.Dropdown.Item value="high" title="High" icon={Icon.Important} />
       </Form.Dropdown>
 
       <Form.Dropdown id="status" title="Status" defaultValue={task.status || "open"}>
-        <Form.Dropdown.Item value="none" title="None" />
-        <Form.Dropdown.Item value="open" title="Open" />
-        <Form.Dropdown.Item value="in-progress" title="In Progress" />
-        <Form.Dropdown.Item value="done" title="Done" />
-        <Form.Dropdown.Item value="holding" title="Holding" />
+        <Form.Dropdown.Item value="none" title="None" icon={Icon.Minus} />
+        <Form.Dropdown.Item value="open" title="Open" icon={Icon.Circle} />
+        <Form.Dropdown.Item value="in-progress" title="In Progress" icon={Icon.Clock} />
+        <Form.Dropdown.Item value="done" title="Done" icon={Icon.CheckCircle} />
+        <Form.Dropdown.Item value="holding" title="Holding" icon={Icon.Pause} />
       </Form.Dropdown>
 
       <Form.DatePicker id="due" title="Due Date" defaultValue={dueDate} />

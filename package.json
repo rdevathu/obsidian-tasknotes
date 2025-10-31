@@ -3,7 +3,7 @@
   "name": "obsidian-tasknotes",
   "title": "Obsidian TaskNotes",
   "description": "Provides access to view, edit, create tasks in the Obsidian TaskNotes plugin.",
-  "icon": "extension-icon.png",
+  "icon": "extension_icon.png",
   "author": "devathu",
   "platforms": [
     "macOS",

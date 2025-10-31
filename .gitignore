@@ -12,3 +12,12 @@ compiled_raycast_rust
 
 # misc
 .DS_Store
+
+# docs folder
+/docs
+
+# claude.md file
+CLAUDE.md
+
+# cursor
+/.cursor

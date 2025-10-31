@@ -1,4 +1,4 @@
-import { ActionPanel, Action, Form, showToast, Toast, popToRoot } from "@raycast/api";
+import { ActionPanel, Action, Form, showToast, Toast, popToRoot, Icon } from "@raycast/api";
 import { useState } from "react";
 import { getClient } from "./api/client";
 import { CreateTaskInput } from "./api/types";
@@ -129,10 +129,10 @@ export default function CreateTask() {
         title="Priority"
         defaultValue="none"
       >
-        <Form.Dropdown.Item value="none" title="None" />
-        <Form.Dropdown.Item value="low" title="Low" />
-        <Form.Dropdown.Item value="normal" title="Normal" />
-        <Form.Dropdown.Item value="high" title="High" />
+        <Form.Dropdown.Item value="none" title="None" icon={Icon.Minus} />
+        <Form.Dropdown.Item value="low" title="Low" icon={Icon.Circle} />
+        <Form.Dropdown.Item value="normal" title="Normal" icon={Icon.Dot} />
+        <Form.Dropdown.Item value="high" title="High" icon={Icon.Important} />
       </Form.Dropdown>
 
       <Form.DatePicker
