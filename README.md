@@ -1,6 +1,11 @@
 # Obsidian TaskNotes Raycast Extension
 
-A powerful Raycast extension for managing your TaskNotes tasks directly from Raycast. Quick access to view, create, edit, and complete tasks, plus Pomodoro timer control.
+![Obsidian TaskNotes Screenshot](metadata/obsidian-tasknotes-1.png)
+
+
+A powerful Raycast extension for managing your [TaskNotes](https://github.com/callumalpass/tasknotes) tasks directly from Raycast. Quick access to view, create, edit, and complete tasks, plus Pomodoro timer control. 
+
+🌟 Thank you to [TaskNotes](https://github.com/callumalpass/tasknotes) for a awesome plugin to manage tasks in Obsidian.
 
 ## Features
 
@@ -147,15 +152,6 @@ npm run lint
 - Verify tasks exist in TaskNotes
 - Try refreshing with `Cmd+R`
 
-## Documentation
-
-See [CLAUDE.md](../CLAUDE.md) in the parent directory for comprehensive technical documentation including:
-- Architecture overview
-- API integration details
-- Code style guidelines
-- Development workflow
-- Future enhancements
-
 ## Screenshots
 
 This extension includes the following features showcased in screenshots:
@@ -169,7 +165,6 @@ This extension includes the following features showcased in screenshots:
 
 For issues related to:
 - **Extension bugs**: Check the extension code
-- **API issues**: See `docs/HTTP_API.md`
 - **Raycast questions**: Visit https://developers.raycast.com/
 
 ## License
