@@ -53,7 +53,7 @@ export interface CreateTaskInput {
   timeEstimate?: number;
 }
 
-export interface UpdateTaskInput extends Partial<CreateTaskInput> {}
+export type UpdateTaskInput = Partial<CreateTaskInput>;
 
 export interface HealthResponse {
   success: boolean;

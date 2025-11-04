@@ -33,7 +33,7 @@ export default function CreateTask() {
       // Check API health first
       try {
         await client.checkHealth();
-      } catch (error) {
+      } catch {
         showToast({
           style: Toast.Style.Failure,
           title: "API Connection Failed",
@@ -62,23 +62,32 @@ export default function CreateTask() {
       }
 
       if (values.tags) {
-        task.tags = values.tags.split(",").map(t => t.trim()).filter(t => t.length > 0);
+        task.tags = values.tags
+          .split(",")
+          .map((t) => t.trim())
+          .filter((t) => t.length > 0);
       }
 
       if (values.projects) {
-        task.projects = values.projects.split(",").map(p => {
-          const trimmed = p.trim();
-          // Ensure project is wrapped in [[ ]]
-          return trimmed.startsWith("[[") ? trimmed : `[[${trimmed}]]`;
-        }).filter(p => p.length > 4);
+        task.projects = values.projects
+          .split(",")
+          .map((p) => {
+            const trimmed = p.trim();
+            // Ensure project is wrapped in [[ ]]
+            return trimmed.startsWith("[[") ? trimmed : `[[${trimmed}]]`;
+          })
+          .filter((p) => p.length > 4);
       }
 
       if (values.contexts) {
-        task.contexts = values.contexts.split(",").map(c => {
-          const trimmed = c.trim();
-          // Ensure context starts with @
-          return trimmed.startsWith("@") ? trimmed : `@${trimmed}`;
-        }).filter(c => c.length > 1);
+        task.contexts = values.contexts
+          .split(",")
+          .map((c) => {
+            const trimmed = c.trim();
+            // Ensure context starts with @
+            return trimmed.startsWith("@") ? trimmed : `@${trimmed}`;
+          })
+          .filter((c) => c.length > 1);
       }
 
       if (values.details) {
@@ -117,35 +126,18 @@ export default function CreateTask() {
         </ActionPanel>
       }
     >
-      <Form.TextField
-        id="title"
-        title="Title"
-        placeholder="Task title"
-        autoFocus
-      />
+      <Form.TextField id="title" title="Title" placeholder="Task title" autoFocus />
 
-      <Form.Dropdown
-        id="priority"
-        title="Priority"
-        defaultValue="none"
-      >
+      <Form.Dropdown id="priority" title="Priority" defaultValue="none">
         <Form.Dropdown.Item value="none" title="None" icon={Icon.Minus} />
         <Form.Dropdown.Item value="low" title="Low" icon={Icon.Circle} />
         <Form.Dropdown.Item value="normal" title="Normal" icon={Icon.Dot} />
         <Form.Dropdown.Item value="high" title="High" icon={Icon.Important} />
       </Form.Dropdown>
 
-      <Form.DatePicker
-        id="due"
-        title="Due Date"
-        type={Form.DatePicker.Type.Date}
-      />
+      <Form.DatePicker id="due" title="Due Date" type={Form.DatePicker.Type.Date} />
 
-      <Form.DatePicker
-        id="scheduled"
-        title="Scheduled Date"
-        type={Form.DatePicker.Type.Date}
-      />
+      <Form.DatePicker id="scheduled" title="Scheduled Date" type={Form.DatePicker.Type.Date} />
 
       <Form.TextField
         id="projects"
@@ -154,25 +146,11 @@ export default function CreateTask() {
         info="Comma-separated project names"
       />
 
-      <Form.TextField
-        id="tags"
-        title="Tags"
-        placeholder="tag1, tag2"
-        info="Comma-separated tags (without #)"
-      />
+      <Form.TextField id="tags" title="Tags" placeholder="tag1, tag2" info="Comma-separated tags (without #)" />
 
-      <Form.TextField
-        id="contexts"
-        title="Contexts"
-        placeholder="@home, @work"
-        info="Comma-separated contexts"
-      />
+      <Form.TextField id="contexts" title="Contexts" placeholder="@home, @work" info="Comma-separated contexts" />
 
-      <Form.TextArea
-        id="details"
-        title="Details"
-        placeholder="Additional task details..."
-      />
+      <Form.TextArea id="details" title="Details" placeholder="Additional task details..." />
     </Form>
   );
 }

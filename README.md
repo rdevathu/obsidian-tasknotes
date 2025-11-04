@@ -156,6 +156,15 @@ See [CLAUDE.md](../CLAUDE.md) in the parent directory for comprehensive technica
 - Development workflow
 - Future enhancements
 
+## Screenshots
+
+This extension includes the following features showcased in screenshots:
+- Menu bar integration with task count indicators
+- Task list with smart filters and visual indicators
+- Task creation form with full metadata support
+- Pomodoro timer interface with session tracking
+- Quick Add Task for natural language input
+
 ## Support
 
 For issues related to:

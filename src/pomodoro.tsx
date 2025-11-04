@@ -31,7 +31,7 @@ export default function PomodoroTimer() {
       // Check API health first
       try {
         await client.checkHealth();
-      } catch (error) {
+      } catch {
         showToast({
           style: Toast.Style.Failure,
           title: "API Connection Failed",
@@ -216,29 +216,13 @@ export default function PomodoroTimer() {
             <ActionPanel>
               {status?.isRunning ? (
                 <>
-                  <Action
-                    title="Stop Pomodoro"
-                    icon={Icon.Stop}
-                    onAction={handleStop}
-                  />
-                  <Action
-                    title="Pause Pomodoro"
-                    icon={Icon.Pause}
-                    onAction={handlePause}
-                  />
+                  <Action title="Stop Pomodoro" icon={Icon.Stop} onAction={handleStop} />
+                  <Action title="Pause Pomodoro" icon={Icon.Pause} onAction={handlePause} />
                 </>
               ) : (
                 <>
-                  <Action
-                    title="Start Pomodoro"
-                    icon={Icon.Play}
-                    onAction={() => handleStart()}
-                  />
-                  <Action
-                    title="Resume Pomodoro"
-                    icon={Icon.Play}
-                    onAction={handleResume}
-                  />
+                  <Action title="Start Pomodoro" icon={Icon.Play} onAction={() => handleStart()} />
+                  <Action title="Resume Pomodoro" icon={Icon.Play} onAction={handleResume} />
                   <Action.Push
                     title="Start with Task"
                     icon={Icon.List}
@@ -298,7 +282,7 @@ function SelectTaskForm({ tasks, onStart }: { tasks: Task[]; onStart: (taskId: s
     try {
       await onStart(values.taskId);
       pop();
-    } catch (error) {
+    } catch {
       // Error already handled in onStart
     } finally {
       setIsLoading(false);
@@ -316,12 +300,7 @@ function SelectTaskForm({ tasks, onStart }: { tasks: Task[]; onStart: (taskId: s
     >
       <Form.Dropdown id="taskId" title="Select Task" autoFocus>
         {tasks.map((task) => (
-          <Form.Dropdown.Item
-            key={task.path}
-            value={task.path}
-            title={task.title}
-            icon={Icon.Document}
-          />
+          <Form.Dropdown.Item key={task.path} value={task.path} title={task.title} icon={Icon.Document} />
         ))}
       </Form.Dropdown>
     </Form>

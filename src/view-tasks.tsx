@@ -2,7 +2,7 @@ import { ActionPanel, Action, List, Icon, Color, showToast, Toast, confirmAlert,
 import { useEffect, useState } from "react";
 import { getClient } from "./api/client";
 import { Task } from "./api/types";
-import { formatDate, isOverdue, isToday, getTaskSubtitle, getTaskId, formatProjects } from "./utils/formatters";
+import { formatDate, isOverdue, isToday, getTaskId, formatProjects } from "./utils/formatters";
 import EditTaskForm from "./edit-task";
 
 type FilterType = "all" | "today" | "overdue";
@@ -21,7 +21,7 @@ export default function ViewTasks() {
       // Check API health first
       try {
         await client.checkHealth();
-      } catch (error) {
+      } catch {
         showToast({
           style: Toast.Style.Failure,
           title: "API Connection Failed",

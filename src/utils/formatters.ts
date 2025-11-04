@@ -47,7 +47,7 @@ export function formatDate(dateString?: string): string {
       month: "short",
       day: "numeric",
     });
-  } catch (error) {
+  } catch {
     return dateString;
   }
 }
@@ -66,7 +66,7 @@ export function isOverdue(dateString?: string): boolean {
     date.setHours(0, 0, 0, 0);
 
     return date.getTime() < today.getTime();
-  } catch (error) {
+  } catch {
     return false;
   }
 }
@@ -86,7 +86,7 @@ export function isToday(dateString?: string): boolean {
     date.setHours(0, 0, 0, 0);
 
     return date.getTime() === today.getTime();
-  } catch (error) {
+  } catch {
     return false;
   }
 }

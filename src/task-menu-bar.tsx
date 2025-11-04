@@ -1,12 +1,12 @@
-import { 
-  MenuBarExtra, 
-  Icon, 
-  Color, 
-  open, 
+import {
+  MenuBarExtra,
+  Icon,
+  Color,
+  open,
   getPreferenceValues,
   LaunchType,
   launchCommand,
-  openCommandPreferences
+  openCommandPreferences,
 } from "@raycast/api";
 import { useCachedPromise } from "@raycast/utils";
 import { getClient } from "./api/client";
@@ -20,20 +20,15 @@ interface Preferences {
   obsidianVault: string;
 }
 
-interface TaskCounts {
-  today: number;
-  overdue: number;
-}
-
 function getObsidianURI(task: Task, vaultName: string): string {
   // Use Obsidian Advanced URI plugin format
   // Remove .md extension if present
   const filePath = task.path.replace(/\.md$/, "");
-  
+
   // Encode the vault name and file path
   const encodedVault = encodeURIComponent(vaultName);
   const encodedPath = encodeURIComponent(filePath);
-  
+
   // Use advanced-uri format which works better for opening specific files
   return `obsidian://advanced-uri?vault=${encodedVault}&filepath=${encodedPath}`;
 }
@@ -70,28 +65,25 @@ export default function TaskMenuBar() {
   const { data, isLoading } = useCachedPromise(
     async () => {
       const client = getClient();
-      
+
       try {
         // Check API health first
         await client.checkHealth();
-      } catch (error) {
+      } catch {
         return { tasks: [], counts: { today: 0, overdue: 0 }, error: "API not available" };
       }
 
       const response = await client.listTasks();
-      
+
       if (!response.success || !response.data) {
         return { tasks: [], counts: { today: 0, overdue: 0 }, error: "Failed to load tasks" };
       }
 
       const tasks = response.data.tasks;
-      
+
       // Filter out completed and archived tasks
       const activeTasks = tasks.filter(
-        (task) => 
-          task.status !== "done" && 
-          task.status !== "completed" && 
-          !task.archived
+        (task) => task.status !== "done" && task.status !== "completed" && !task.archived,
       );
 
       // Separate into today and overdue
@@ -118,7 +110,7 @@ export default function TaskMenuBar() {
     [],
     {
       initialData: { tasks: { today: [], overdue: [] }, counts: { today: 0, overdue: 0 }, error: null },
-    }
+    },
   );
 
   const totalCount = (data?.counts.today || 0) + (data?.counts.overdue || 0);
@@ -128,18 +120,14 @@ export default function TaskMenuBar() {
   // Show error icon if there's an error
   if (data?.error) {
     return (
-      <MenuBarExtra 
+      <MenuBarExtra
         icon={{ source: Icon.ExclamationMark, tintColor: Color.Red }}
         tooltip="TaskNotes: Error"
         isLoading={isLoading}
       >
         <MenuBarExtra.Item title={data.error} />
         <MenuBarExtra.Separator />
-        <MenuBarExtra.Item
-          title="Open Preferences"
-          icon={Icon.Gear}
-          onAction={openCommandPreferences}
-        />
+        <MenuBarExtra.Item title="Open Preferences" icon={Icon.Gear} onAction={openCommandPreferences} />
       </MenuBarExtra>
     );
   }
@@ -147,31 +135,33 @@ export default function TaskMenuBar() {
   // Determine icon and title based on task count
   const todayCount = data?.counts.today || 0;
   const overdueCount = data?.counts.overdue || 0;
-  
+
   let menuBarDisplay;
   let tooltip;
-  
+
   if (totalCount === 0) {
     // All caught up - show green check
     menuBarDisplay = {
-      icon: { source: Icon.CheckCircle, tintColor: Color.Green }
+      icon: { source: Icon.CheckCircle, tintColor: Color.Green },
     };
     tooltip = "TaskNotes: No tasks due";
   } else {
     // Show count breakdown in brackets
-    const displayText = overdueCount > 0 && todayCount > 0
-      ? `[${overdueCount} | ${todayCount}]`  // Show both overdue | today
-      : overdueCount > 0
-      ? `[${overdueCount}]`  // Only overdue
-      : `[${todayCount}]`;   // Only today
-    
+    const displayText =
+      overdueCount > 0 && todayCount > 0
+        ? `[${overdueCount} | ${todayCount}]` // Show both overdue | today
+        : overdueCount > 0
+          ? `[${overdueCount}]` // Only overdue
+          : `[${todayCount}]`; // Only today
+
     menuBarDisplay = {
       title: displayText,
-      icon: overdueCount > 0 
-        ? { source: Icon.Circle, tintColor: Color.Red }
-        : { source: Icon.Circle, tintColor: Color.Blue }
+      icon:
+        overdueCount > 0
+          ? { source: Icon.Circle, tintColor: Color.Red }
+          : { source: Icon.Circle, tintColor: Color.Blue },
     };
-    
+
     const parts = [];
     if (overdueCount > 0) parts.push(`${overdueCount} overdue`);
     if (todayCount > 0) parts.push(`${todayCount} today`);
@@ -179,16 +169,9 @@ export default function TaskMenuBar() {
   }
 
   return (
-    <MenuBarExtra 
-      {...menuBarDisplay}
-      tooltip={tooltip}
-      isLoading={isLoading}
-    >
+    <MenuBarExtra {...menuBarDisplay} tooltip={tooltip} isLoading={isLoading}>
       {/* Header with count */}
-      <MenuBarExtra.Item
-        title={`${totalCount} Task${totalCount === 1 ? "" : "s"} Due`}
-        icon={Icon.Calendar}
-      />
+      <MenuBarExtra.Item title={`${totalCount} Task${totalCount === 1 ? "" : "s"} Due`} icon={Icon.Calendar} />
       <MenuBarExtra.Separator />
 
       {/* Overdue Section */}
@@ -198,7 +181,7 @@ export default function TaskMenuBar() {
             {overdueTasks.map((task) => {
               const taskIcon = getTaskIcon(task);
               const subtitle = formatProjects(task.projects) || formatDate(task.due);
-              
+
               return (
                 <MenuBarExtra.Item
                   key={getTaskId(task)}
@@ -232,7 +215,7 @@ export default function TaskMenuBar() {
             {todayTasks.map((task) => {
               const taskIcon = getTaskIcon(task);
               const subtitle = formatProjects(task.projects) || formatDate(task.due);
-              
+
               return (
                 <MenuBarExtra.Item
                   key={getTaskId(task)}
@@ -262,10 +245,7 @@ export default function TaskMenuBar() {
       {/* Empty state */}
       {totalCount === 0 && (
         <>
-          <MenuBarExtra.Item
-            title="All caught up! 🎉"
-            icon={{ source: Icon.CheckCircle, tintColor: Color.Green }}
-          />
+          <MenuBarExtra.Item title="All caught up! 🎉" icon={{ source: Icon.CheckCircle, tintColor: Color.Green }} />
           <MenuBarExtra.Separator />
         </>
       )}
@@ -303,14 +283,9 @@ export default function TaskMenuBar() {
           shortcut={{ modifiers: ["cmd"], key: "n" }}
         />
         {!vaultName && (
-          <MenuBarExtra.Item
-            title="⚠️ Set Obsidian Vault Name"
-            icon={Icon.Gear}
-            onAction={openCommandPreferences}
-          />
+          <MenuBarExtra.Item title="⚠️ Set Obsidian Vault Name" icon={Icon.Gear} onAction={openCommandPreferences} />
         )}
       </MenuBarExtra.Section>
     </MenuBarExtra>
   );
 }
-

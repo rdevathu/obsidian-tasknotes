@@ -2,7 +2,6 @@
 
 import { getPreferenceValues } from "@raycast/api";
 import {
-  Task,
   TasksResponse,
   TaskResponse,
   CreateTaskInput,
@@ -11,7 +10,6 @@ import {
   PomodoroStatusResponse,
   PomodoroStartResponse,
   ApiResponse,
-  TaskListFilters,
   NLPParseInput,
   NLPParseResponse,
   NLPCreateResponse,
@@ -71,7 +69,7 @@ export class TaskNotesClient {
   }
 
   // Task Operations
-  async listTasks(filters?: TaskListFilters): Promise<TasksResponse> {
+  async listTasks(): Promise<TasksResponse> {
     // The API doesn't support query parameters on GET /api/tasks
     // We just fetch all tasks and filter client-side
     return this.fetch<TasksResponse>("/tasks");
